@@ -2,7 +2,7 @@
 include ('../db.php');
 
 
-if ($_GET['act'] == 'delusr') {
+if (isset($_GET['act']) && $_GET['act'] == 'delusr') {
 
 	$id = decryptIt($_GET['id']);
 
@@ -68,7 +68,7 @@ if ($_GET['act'] == 'delusr') {
 							echo '<td>' . $row['usrdt_usr'] . '</td>';
 							echo '<td>' . $row['usrdt_adrs'] . '</td>';
 							echo '<td>' . $row['usrdt_stat'] . '</td>';
-							echo '<td><a href="pnl_user?act=delusr&id=' . encryptIt($row['usrdt_id']) . '" onclick="return confirm()">Delete</a></td>';
+							echo '<td><a href="pnl_user?act=delusr&id=' . encryptIt($row['usrdt_id']) . '" onclick="return confirm(`Are you sure you want to delete this user`)">Delete</a></td>';
 							echo '</tr>';
 
 						}

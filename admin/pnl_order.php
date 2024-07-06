@@ -2,7 +2,7 @@
 include('../db.php');
 
 
-if ($_GET['act'] == 'ordrdel') {
+if (isset($_GET['act']) && $_GET['act'] == 'ordrdel') {
 
 	$id = decryptIt($_GET['id']);
 
@@ -13,7 +13,7 @@ if ($_GET['act'] == 'ordrdel') {
 	exit();
 }
 
-if ($_GET['act'] == 'ordrrdy') {
+if (isset($_GET['act']) && $_GET['act'] == 'ordrrdy') {
 
 	$id = decryptIt($_GET['id']);
 
@@ -102,7 +102,7 @@ if ($_GET['act'] == 'ordrrdy') {
 								echo '<td><p class="text-success">ready</p></td>';
 							}
 
-							echo '<td><a href="pnl_order?act=ordrrdy&id=' . encryptIt($row['usr_id']) . '" onclick="return confirm()">Mark ready</a><br><a href="pnl_order?act=ordrdel&id=' . encryptIt($row['usr_id']) . '" onclick="return confirm()">Delete order</a></td>';
+							echo '<td><a href="pnl_order?act=ordrdel&id=' . encryptIt($row['usr_id']) . '" onclick="return confirm()">Delete order</a></td>';
 							echo '</tr>';
 						}
 					}

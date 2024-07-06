@@ -67,12 +67,16 @@ if (isset($_GET['act'])) {
 				<li class="nav-item active">
 					<a class="nav-link" href="#">Browse <span class="sr-only">(current)</span></a>
 				</li>
-				<li class="nav-item">
+				<?php
+				if (isset($_SESSION['sess_id'])) {
+					echo '<li class="nav-item">
 					<a class="nav-link" href="checkout">Checkout</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="order">Status</a>
-				</li>
+				</li>';
+				}
+				 ?>				
 			</ul>
 			<div class="my-2 my-lg-0">
 				<ul class="navbar-nav ml-auto">
@@ -154,8 +158,14 @@ if (isset($_GET['act'])) {
 								<p class="card-text text-capitalize"><?php echo $itm_shp . "'s Shop"; ?></p>
 							</div>
 							<div class="card-footer text-right" id="<?php echo encryptIt($itm_id); ?>">
-								<h5 class="card-text float-left text-success">RM <?php echo number_format($itm_prc, 2); ?></h5>
-								<a href="browse?act=add&id=<?php echo encryptIt($itm_id); ?>" class="btn btn-success ">Add to cart</a>
+								<h5 class="card-text float-left text-success mb-3"># <?php echo number_format($itm_prc, 2); ?></h5>
+								
+								<?php							
+if(isset($_SESSION['sess_id'])){
+	echo '<a href="browse?act=add&id='.encryptIt($itm_id).'" class="btn btn-success">Add to cart</a>';
+}
+?>
+		
 							</div>
 						</div>
 					<?php

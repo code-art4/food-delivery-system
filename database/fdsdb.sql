@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Jan 04, 2021 at 09:50 PM
--- Server version: 8.0.18
--- PHP Version: 7.3.11
+-- Host: 127.0.0.1
+-- Generation Time: Mar 08, 2023 at 02:24 PM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -31,12 +30,12 @@ SET time_zone = "+00:00";
 CREATE TABLE `fds_ctlog` (
   `ctlog_id` int(11) NOT NULL,
   `ctlog_usrdt_id` int(11) DEFAULT NULL,
-  `ctlog_nme` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ctlog_nme` varchar(50) DEFAULT NULL,
   `ctlog_prc` double DEFAULT NULL,
-  `ctlog_desc` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `ctlog_shp` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `ctlog_img` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `ctlog_log` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL
+  `ctlog_desc` varchar(500) DEFAULT NULL,
+  `ctlog_shp` varchar(50) DEFAULT NULL,
+  `ctlog_img` varchar(100) DEFAULT NULL,
+  `ctlog_log` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -44,10 +43,13 @@ CREATE TABLE `fds_ctlog` (
 --
 
 INSERT INTO `fds_ctlog` (`ctlog_id`, `ctlog_usrdt_id`, `ctlog_nme`, `ctlog_prc`, `ctlog_desc`, `ctlog_shp`, `ctlog_img`, `ctlog_log`) VALUES
-(1, 2, 'mee goreng', 12.9, 'mee goreng dari timur tengah', 'makcik kiah', '2_mee-goreng2.jpg', '2020/12/26 22:30pm'),
-(3, 2, 'nasi goreng ayam', 14.9, 'nasi goreng dari jawa tengah', 'makcik kiah', '0008019_nasi-goreng-ayam.jpeg', '2020/12/26 22:32pm'),
-(4, 2, 'nasi goreng pattaya', 12.9, 'nasi goreng dari jawa tengah', 'makcik kiah', 'nasi-goreng-pattaya.jpg', '2020/12/26 22:31pm'),
-(6, 4, 'kuey tiew basah kungfu', 8.5, 'kuey tiew tiau kungfu hustle dari japang', 'damm', '2_mee-goreng2.jpg', '2020/12/26 22:46pm');
+(6, 4, 'Eba', 3500, 'Eba', 'damm', 'Eba.jpg', '2023/03/08 21:18pm'),
+(7, 4, 'Amala', 3600, 'Amala', 'damm', 'Amala.jpg', '2023/03/08 21:18pm'),
+(8, 4, 'Semo', 3500, 'Semo', 'damm', 'fufu.jpg', '2023/03/08 21:19pm'),
+(9, 4, 'Iyan(Pounded yam)', 4000, 'Pounded yam', 'damm', 'iyan.jpg', '2023/03/08 21:20pm'),
+(10, 4, 'Jollof rice', 3000, 'Party Jollof rice', 'damm', 'Jollof rice.jpg', '2023/03/08 21:20pm'),
+(11, 4, 'Ofada rice', 3800, 'Ofada rice', 'damm', 'ofada rice.jpg', '2023/03/08 21:21pm'),
+(12, 4, 'Yam porridge', 2000, 'Yam porridge', 'damm', 'yam porridge.jpg', '2023/03/08 21:21pm');
 
 -- --------------------------------------------------------
 
@@ -58,10 +60,10 @@ INSERT INTO `fds_ctlog` (`ctlog_id`, `ctlog_usrdt_id`, `ctlog_nme`, `ctlog_prc`,
 CREATE TABLE `fds_inv` (
   `inv_id` int(11) NOT NULL,
   `inv_ordr_id` int(11) DEFAULT NULL,
-  `inv_pay_stat` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `inv_pay_stat` varchar(10) DEFAULT NULL,
   `inv_amt` double DEFAULT NULL,
-  `inv_type` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `inv_dte` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL
+  `inv_type` varchar(10) DEFAULT NULL,
+  `inv_dte` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -69,12 +71,7 @@ CREATE TABLE `fds_inv` (
 --
 
 INSERT INTO `fds_inv` (`inv_id`, `inv_ordr_id`, `inv_pay_stat`, `inv_amt`, `inv_type`, `inv_dte`) VALUES
-(7, 3, 'paid', 25.8, 'paypal', '2021/01/05 00:08am'),
-(8, 4, 'paid', 29.8, 'paypal', '2021/01/05 00:08am'),
-(9, 5, 'none', 25.8, 'cash', '2021/01/05 05:15am'),
-(10, 6, 'none', 17, 'cash', '2021/01/05 05:15am'),
-(11, 7, 'none', 12.9, 'cash', '2021/01/05 05:29am'),
-(12, 8, 'none', 14.9, 'cash', '2021/01/05 05:29am');
+(10, 6, 'none', 17, 'cash', '2021/01/05 05:15am');
 
 -- --------------------------------------------------------
 
@@ -86,9 +83,9 @@ CREATE TABLE `fds_ordr` (
   `ordr_id` int(11) NOT NULL,
   `ordr_usrdt_id` int(11) DEFAULT NULL,
   `ordr_ctlog_id` int(11) DEFAULT NULL,
-  `ordr_qty` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `ordr_dte` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `ordr_stat` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL
+  `ordr_qty` varchar(10) DEFAULT NULL,
+  `ordr_dte` varchar(20) DEFAULT NULL,
+  `ordr_stat` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -96,12 +93,7 @@ CREATE TABLE `fds_ordr` (
 --
 
 INSERT INTO `fds_ordr` (`ordr_id`, `ordr_usrdt_id`, `ordr_ctlog_id`, `ordr_qty`, `ordr_dte`, `ordr_stat`) VALUES
-(3, 16, 1, '2', '2021/01/05 00:08am', 'Completed'),
-(4, 16, 3, '2', '2021/01/05 00:08am', 'Completed'),
-(5, 1, 1, '2', '2021/01/05 05:15am', 'Completed'),
-(6, 1, 6, '2', '2021/01/05 05:15am', 'Completed'),
-(7, 1, 1, '1', '2021/01/05 05:29am', 'Preparing'),
-(8, 1, 3, '1', '2021/01/05 05:29am', 'Preparing');
+(6, 1, 6, '2', '2021/01/05 05:15am', 'Completed');
 
 -- --------------------------------------------------------
 
@@ -111,12 +103,12 @@ INSERT INTO `fds_ordr` (`ordr_id`, `ordr_usrdt_id`, `ordr_ctlog_id`, `ordr_qty`,
 
 CREATE TABLE `fds_usrdt` (
   `usrdt_id` int(11) NOT NULL,
-  `usrdt_nme` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `usrdt_usr` varchar(15) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `usrdt_pwd` varchar(80) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `usrdt_adrs` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `usrdt_stat` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `usrdt_log` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL
+  `usrdt_nme` varchar(50) DEFAULT NULL,
+  `usrdt_usr` varchar(15) DEFAULT NULL,
+  `usrdt_pwd` varchar(80) DEFAULT NULL,
+  `usrdt_adrs` varchar(100) DEFAULT NULL,
+  `usrdt_stat` varchar(10) DEFAULT NULL,
+  `usrdt_log` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -170,7 +162,7 @@ ALTER TABLE `fds_usrdt`
 -- AUTO_INCREMENT for table `fds_ctlog`
 --
 ALTER TABLE `fds_ctlog`
-  MODIFY `ctlog_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `ctlog_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `fds_inv`

@@ -113,7 +113,7 @@ if (isset($_SESSION["sess_id"])) {
 
 							echo '<div class="row border-top py-3">';
 							echo '<div class="col-6 text-capitalize">' . $row_data['ctlog_nme'] . '</div>';
-							echo '<div class="col-2">RM ' . number_format((float)($row_data['ctlog_prc']), 2, '.', '') . '</div>';
+							echo '<div class="col-2"># ' . number_format((float)($row_data['ctlog_prc']), 2, '.', '') . '</div>';
 							echo '<div class="col-2">(' . $row['ordr_qty'] . ')x Order</div>';
 							if ($row['ordr_stat'] != "") {
 								echo '<div class="col-2">' . $row['ordr_stat'] . '</div>';
@@ -131,13 +131,13 @@ if (isset($_SESSION["sess_id"])) {
 						echo '<div class="row  border-top pt-3">';
 
 						if ($payment_type == 'paypal') {
-							echo '<h4 class="col text-center text-primary">RM ' . number_format((float)(round($tot_prc + $tot_svc, 1)), 2, '.', '') . ' (Paid)</h4>';
+							echo '<h4 class="col text-center text-primary"># ' . number_format((float)(round($tot_prc + $tot_svc, 1)), 2, '.', '') . ' (Paid)</h4>';
 							echo '</div>';
 
 							echo '<div class="row">';
 							echo '<p class="col text-center ">Pay by Paypal. </p>';
 						} else {
-							echo '<h4 class="col text-center text-success">RM ' . number_format((float)(round($tot_prc + $tot_svc, 1)), 2, '.', '') . ' (Unpaid)</h4>';
+							echo '<h4 class="col text-center text-success"># ' . number_format((float)(round($tot_prc + $tot_svc, 1)), 2, '.', '') . ' (Unpaid)</h4>';
 							echo '</div>';
 
 							echo '<div class="row">';

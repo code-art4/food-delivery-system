@@ -58,12 +58,16 @@ if (isset($_GET['id'])) {
                 <li class="nav-item">
                     <a class="nav-link" href="browse">Browse</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="checkout">Checkout</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="order">Status</a>
-                </li>
+                <?php
+				if (isset($_SESSION['sess_id'])) {
+					echo '<li class="nav-item">
+					<a class="nav-link" href="checkout">Checkout</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="order">Status</a>
+				</li>';
+				}
+				 ?>	
             </ul>
             <div class="my-2 my-lg-0">
                 <ul class="navbar-nav ml-auto">
@@ -116,43 +120,7 @@ if (isset($_GET['id'])) {
             </div>
         </div>
     </header>
-
-    <!-- Page Content -->
-    <section class="py-5">
-        <div class="container text-justify">
-            <h2 class="font-weight-light">FOS's About Us</h2>
-            <p> FOS is sub-application in Food Delivery Management System(FDMS) family.
-                We simplified food ordering and take-away in a simple steps that will ease enagegment between customer and food vendor.
-                this is to ensure our customer satisfaction and provide the best facility and automation in the simplest way possible.
-                FOS aims to become the number one user choice in food order and management in 2021.
-                Helps us achieve our target by supporting us and keep using our beloved apps to enjoy your daily meals.
-                Keep in touch with our daily promotion and services pricing changes. We hope you will have the best time using our apps.
-            </p>
-        </div>
-        <div class="container pt-4 text-justify">
-            <h2 class="font-weight-light">FOS's Policy</h2>
-            <p>
-                These Terms of Use (“Terms”) govern your use of the websites and mobile applications provided by foodpanda (or referred to as “us”)
-                (collectively the “Platforms”). Please read these Terms carefully. By accessing and using the Platforms, you agree that you have read,
-                understood and accepted the Terms including any additional terms and conditions and any policies referenced herein, available on the
-                Platforms or available by hyperlink. If you do not agree or fall within the Terms, please do not use the Platforms.
-            </p>
-            <p>
-                The Platforms may be used by (i) natural persons who have reached 18 years of age and (ii) corporate legal entities, e.g companies.
-                Where applicable, these Terms shall be subject to country-specific provisions as set out herein.
-            </p>
-            <p>
-                Users below the age of 18 must obtain consent from parent(s) or legal guardian(s), who by accepting these Terms shall agree to take
-                responsibility for your actions and any charges associated with your use of the Platforms and/or purchase of Goods. If you do not have
-                consent from your parent(s) or legal guardian(s), you must stop using/accessing the Platforms immediately.
-            </p>
-            <p>
-                foodpanda reserves the right to change or modify these Terms (including our policies which are incorporated into these Terms) at any time.
-                You are strongly recommended to read these Terms regularly. You will be deemed to have agreed to the amended Terms by your continued use
-                of the Platforms following the date on which the amended Terms are posted.
-            </p>
-        </div>
-    </section>
+   
 
     <!-- Model Signup -->
     <div class="modal fade" id="modalSignupForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

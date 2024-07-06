@@ -40,9 +40,34 @@ if (isset($_GET['act'])) {
 				$query = "SELECT * from fds_ordr WHERE ordr_usrdt_id='$usr_id' AND ordr_stat!='Completed'";
 				$result = mysqli_query($conn, $query);
 
+
 				if (mysqli_num_rows($result) > 0) {
+					foreach ($_SESSION['sess_cart'] as $key => $data) {
+
+						$ctlog_id = decryptIt($key);
+
+						$query = "INSERT INTO fds_ordr (ordr_usrdt_id, ordr_ctlog_id, ordr_qty, ordr_dte, ordr_stat) 
+									VALUES('$usr_id', '$ctlog_id', '$data', '$date', 'Preparing')";
+						mysqli_query($conn, $query) or die($query . '  ERROR!');
+						$inv_ordr_id = mysqli_insert_id($conn);
+
+						$query = "SELECT ctlog_prc FROM fds_ctlog WHERE ctlog_id = '$ctlog_id'";
+						$row = mysqli_fetch_assoc(mysqli_query($conn, $query));
+
+						$total_amount = $row['ctlog_prc'] * $data;
+
+						if ($_GET['return'] == 'paypal') {
+							$query = "INSERT INTO fds_inv (inv_ordr_id, inv_pay_stat, inv_amt, inv_type, inv_dte) 
+									VALUES('$inv_ordr_id', 'paid', '$total_amount', 'paypal', '$date')";
+							mysqli_query($conn, $query);
+						} else {
+							$query = "INSERT INTO fds_inv (inv_ordr_id, inv_pay_stat, inv_amt, inv_type, inv_dte) 
+									VALUES('$inv_ordr_id', 'none', '$total_amount', 'cash', '$date')";
+							mysqli_query($conn, $query);
+						}
+					}
 					unset($_SESSION['sess_cart']);
-					header('location: checkout?act=error');
+					header('location: checkout?act=success');
 					exit();
 				} else {
 
@@ -237,7 +262,7 @@ if (isset($_GET['act'])) {
 							echo $tot_svc;
 						} ?>
 					</span></br>
-					<h4 class="text-success"> RM
+					<h4 class="text-success"> #
 						<?php if (isset($tot_prc)) {
 							echo number_format((float)(round($tot_prc + $tot_svc, 1)), 2, '.', '');
 						} ?>
@@ -255,8 +280,8 @@ if (isset($_GET['act'])) {
 						<div class="form-group">
 							<label class=" mr-4"><input type="radio" class="form-input" name="payment" value="cash" checked>
 								<i class="fas fa-wallet"></i> Cash </label>
-							<label><input type="radio" class="form-input" name="payment" value="paypal">
-								<i class="fab fa-cc-paypal"></i> Paypal</label>
+							<!-- <label><input type="radio" class="form-input" name="payment" value="paypal">
+								<i class="fab fa-cc-paypal"></i> Paypal</label> -->
 						</div>
 						<div id="cash">
 							<form action="checkout" method="get">
@@ -268,7 +293,7 @@ if (isset($_GET['act'])) {
 									<i class="fa fa-angle-right"></i></button>
 							</form>
 						</div>
-						<div id="paypal" style="display: none;">
+						<!-- <div id="paypal" style="display: none;">
 							<form action="<?php echo PAYPAL_URL; ?>" method="post">
 								<input type="hidden" name="business" value="<?php echo PAYPAL_ID; ?>">
 								<input type="hidden" name="cmd" value="_xclick">
@@ -281,7 +306,7 @@ if (isset($_GET['act'])) {
 								<input type="hidden" name="cancel_return" value="<?php echo PAYPAL_CANCEL_URL; ?>">
 								<input type="submit" name="submit" class="btn btn-primary btn-block" value="Pay Now">
 							</form>
-						</div>
+						</div> -->
 					</td>
 				</tr>
 			<?php
